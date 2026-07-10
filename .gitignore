@@ -1,0 +1,14 @@
+# 개인 설정(각자 자기 값으로 채움). 공유 템플릿은 config.example.json.
+config.json
+
+# 폐기된 초기 작업 파일(운영에 불필요)
+tasks/
+
+# OS / 편집기
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# 로컬 전용 Claude Code 권한 설정
+.claude/settings.local.json
