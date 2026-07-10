@@ -12,3 +12,5 @@ tasks/
 
 # 로컬 전용 Claude Code 권한 설정
 .claude/settings.local.json
+
+fixtures/
