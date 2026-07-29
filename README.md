@@ -49,11 +49,23 @@ claude.ai에서 **Google Calendar**와 **Slack** 커넥터를 연결합니다. �
 | `priorityRule` | 배치 기준. 자연어 문장으로 적습니다. 예: `"마감이 급한 일을 먼저 배치한다"` |
 | `onOverflow` | 하루에 다 담기지 않는 태스크의 처리 방식 (기본 `"push"`) |
 
-### 3. 루틴 생성 요청
+### 3. 시험 실행
+
+루틴을 등록하기 전에 가상 일정으로 한 번 돌려봅니다. Claude Code에서 이렇게 요청하면 됩니다.
+
+```
+test/run.md 대로 검증해줘
+```
+
+캘린더 대신 `test/golden-events.json`의 목 데이터를 읽어 판별·분해 결과와 gap 계산, 완성된 리포트를 보여줍니다. 스펙이 답을 주지 않는 상황을 만나면 임의로 정하지 않고 그 지점을 알려줍니다.
+
+`priorityRule` 문장을 바꿔가며 돌려보고 순서가 원하는 대로 나오는지 확인한 뒤 다음 단계로 넘어가세요. 실제 캘린더를 읽지도, Slack으로 보내지도 않으니 몇 번이든 돌려도 됩니다.
+
+### 4. 루틴 생성 요청
 
 Claude Code에서 이 저장소를 열고 `/schedule` 스킬로 요청합니다. `docs/specs/decompose.md`, `docs/specs/arrange.md`와 방금 채운 `config.json`을 함께 보여주며 "이 스펙대로 매일 아침 실행되는 스케줄 루틴을 만들어줘"라고 요청하면 됩니다.
 
-### 4. 매일 아침 리포트 수신
+### 5. 매일 아침 리포트 수신
 
 이후로는 `config.json`에 적어둔 시각마다 루틴이 알아서 실행되어 하루 계획을 Slack으로 보냅니다. 배치 결과가 마음에 들지 않으면 `priorityRule` 문장만 고치면 됩니다.
 
@@ -61,3 +73,4 @@ Claude Code에서 이 저장소를 열고 `/schedule` 스킬로 요청합니다.
 
 - [decompose](docs/specs/decompose.md) — 고정 일정과 유동 태스크를 판별하고 실행 단위로 쪼개는 로직
 - [arrange](docs/specs/arrange.md) — 쪼갠 단위를 배치하고 리포트로 만드는 로직
+- [test/run.md](test/run.md) — 골든셋 검증 지시문. 시나리오 3개(평범한 하루 / 일정 없는 날 / gap이 0인 날)
