@@ -1,6 +1,6 @@
 # Spec: 배치(Arrange) 엔진
 
-관련 문서: [daily-decompose-report](../ideas/daily-decompose-report.md) · [decompose](./decompose.md)의 출력을 입력으로 받는다
+관련 문서: [decompose](./decompose.md) — 이 문서는 그 출력을 입력으로 받는다
 
 ## Objective
 쪼개기(decompose) 단계가 만든 항목들(`kind: fixed | task`)을 받아, 유동 태스크(`task`)들을 효율적인 순서로 배치한다. 고정 일정(`fixed`)은 움직이지 않는다 — 그 사이사이 빈 시간에 유동 태스크를 채워 넣는 문제다.
@@ -38,7 +38,7 @@ docs/specs/arrange.md   # 이 문서
 4. 하루의 모든 gap을 다 채우고도 남는 태스크가 있으면(=하루 총 유동 시간이 부족) `onOverflow`에 따라 처리한다:
    - `"push"`: 별도 표시 없이 순서 리스트 맨 뒤에 그대로 이어서 보여준다. 사용자가 순서를 보고 오늘 다 못 끝낼 수도 있다는 걸 스스로 판단한다.
    - `"flag"`: 오늘 남은 gap에 들어가지 않는 지점부터 구분선을 넣어 "여기부터는 오늘 안 들어갈 수도 있음"을 표시한다.
-5. 다음날로 자동으로 넘기거나, 캘린더에 다시 등록하는 것은 하지 않는다 (범위 밖 — [daily-decompose-report](../ideas/daily-decompose-report.md)의 Not Doing 참고).
+5. 다음날로 자동으로 넘기거나, 캘린더에 다시 등록하는 것은 하지 않는다 (범위 밖 — 캘린더 쓰기는 이번 단계에서 하지 않는다).
 
 ## 출력 형태 (Slack 리포트)
 - 고정 일정은 **실제 캘린더 시각**을 그대로 보여준다 (이건 추정이 아니라 사실이므로).

@@ -1,6 +1,6 @@
 # Spec: 쪼개기(Decompose) 엔진
 
-관련 문서: [daily-decompose-report](../ideas/daily-decompose-report.md) · 배치(Arrange) 스펙은 별도 문서로 분리 예정 (`arrange.md`, 아직 미작성)
+관련 문서: [arrange](./arrange.md) — 이 문서의 출력을 입력으로 받는다
 
 ## Objective
 그날의 Google Calendar 이벤트를 입력받아, (1) 고정 일정인지 쪼갤 대상(유동 태스크)인지 판별하고, (2) 유동 태스크는 실행 가능한 최소 논리 단위로 분해하며, (3) 각 단위의 예상 소요시간을 추정한다. 배치(순서 재배치)는 다루지 않는다 — 이 판단 결과는 배치 단계의 입력이 된다.
@@ -50,13 +50,13 @@ docs/specs/decompose.md # 이 문서 — 실질적으로 루틴의 스펙이자 
 - 입력: 이벤트 제목 + 설명(있으면)
 - 출력: 실행 가능한 문장 단위 리스트. "실행 가능하다"의 기준: 사용자가 그 문장만 보고 바로 무엇을 해야 할지 알 수 있어야 한다 (예: "프로젝트 A 작업" → "프로젝트 A 기획서 초안 작성", "프로젝트 A 팀원 피드백 반영" 등).
 - 설명이 텅 비어 제목만으로 분해 재료가 부족하면, **분해하지 않고 원본 그대로 1개 항목(`kind: task`)으로 반환**한다 — 억지로 쪼개지 않는다.
-- 각 단위에 대해 별도로 예상 소요시간(분 단위)을 추정한다. 과거 실측 데이터 기반 보정은 하지 않는다 (범위 밖 — [daily-decompose-report](../ideas/daily-decompose-report.md)의 Not Doing 참고).
+- 각 단위에 대해 별도로 예상 소요시간(분 단위)을 추정한다. 과거 실측 데이터 기반 보정은 하지 않는다 (범위 밖 — 예측-실측 오차 학습은 이번 단계에서 다루지 않는다).
 
 ## Testing Strategy
 코드가 없으므로 자동화된 유닛 테스트 대상도 없다. 검증은 전부 **골든셋 수동 리뷰**로 한다:
 - `fixtures/golden-events.json`(목 캘린더 이벤트 15개, 고정/유동/애매함/컨벤션/빈 설명 케이스 포함)을 스케줄 루틴과 같은 프롬프트로 돌려본다.
 - 사람이 직접 "이 판별/분해가 말이 되는가"를 리뷰한다 (LLM 출력은 매번 달라질 수 있어 strict assert가 아니라 정성 평가).
-- [daily-decompose-report](../ideas/daily-decompose-report.md)의 "Key Assumptions to Validate" 1번(제목만으로 의미있게 쪼갤 수 있는가)을 이 골든셋으로 검증한다.
+- 이 골든셋으로 검증하려는 핵심 가정: 캘린더 이벤트의 제목/설명만으로 의미 있게 쪼갤 수 있는가.
 
 ## Boundaries
 - **Always**: 캘린더에 read-only 스코프만 사용 (쓰기 API 호출 금지), `config.json` 커밋 금지, 출력 형태를 바꾸면 이 문서와 배치 스펙을 함께 갱신
@@ -70,6 +70,6 @@ docs/specs/decompose.md # 이 문서 — 실질적으로 루틴의 스펙이자 
 - `config.example.json`만 보고 지인이 자기 `config.json`을 채워 자기 `schedule` 루틴을 등록할 수 있음
 
 ## Open Questions
-- 지인 배포 시 Google OAuth(캘린더 read 권한) 인증 플로우를 어떻게 안내할지 (셀프서브 가이드 필요 여부) — [daily-decompose-report](../ideas/daily-decompose-report.md)에서 이미 제기된 질문, 여기서도 동일하게 적용됨
+- 지인 배포 시 Google OAuth(캘린더 read 권한) 인증 플로우를 어떻게 안내할지 (셀프서브 가이드 필요 여부)
 - `[TASK]` 외에 추가 컨벤션(캘린더 색상, `extendedProperties` 등)을 지원할지는 실제 사용해보면서 필요성이 확인되면 추가
 - `schedule` 스킬 루틴에서 `config.json` 값을 프롬프트 지시문에 어떻게 자연스럽게 엮을지(매 실행마다 `Read`로 불러오게 지시하는 문구 설계)는 실제 루틴 작성 시 확정
