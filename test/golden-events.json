@@ -1,5 +1,5 @@
 {
-  "_comment": "시나리오별 목 캘린더 이벤트. 실행 방법은 docs/testing.md 참고.",
+  "_comment": "시나리오별 목 캘린더 이벤트. 실행 방법은 test/run.md 참고.",
 
   "typical-day": [
     {

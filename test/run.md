@@ -1,6 +1,6 @@
 # 골든셋 검증
 
-`fixtures/golden-events.json`의 시나리오 하나로 `docs/specs/`의 두 스펙을 실행하고, 결과를 스스로 점검해 보고한다. 기본은 1회 실행이다.
+`./golden-events.json`의 시나리오 하나로 `docs/specs/`의 두 스펙을 실행하고, 결과를 스스로 점검해 보고한다. 기본은 1회 실행이다.
 
 ## 입력
 - **시나리오**: `typical-day`(21개, 평범한 하루) / `empty-day`(0개) / `all-fixed-day`(고정 일정이 `workingHours`를 꽉 채운 날). 지정이 없으면 `typical-day`.
@@ -9,7 +9,7 @@
 - 캘린더 MCP를 호출하지 않는다. Slack으로 보내지 않는다.
 
 ## 실행
-[decompose](./specs/decompose.md)와 [arrange](./specs/arrange.md)를 읽고 그대로 실행한다. 단 캘린더 조회 대신 위 시나리오의 이벤트 목록을 그날 이벤트로 쓴다.
+[decompose](../docs/specs/decompose.md)와 [arrange](../docs/specs/arrange.md)를 읽고 그대로 실행한다. 단 캘린더 조회 대신 위 시나리오의 이벤트 목록을 그날 이벤트로 쓴다.
 
 출력 순서:
 1. 이벤트별 판별 결과. 각 줄에 판별 로직 몇 번으로 정했는지(컨벤션 / 키워드 / 애매→고정) 함께 적는다. 키워드로 정했으면 그 키워드를 그대로 인용한다
