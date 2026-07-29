@@ -4,6 +4,7 @@
   "timezone": "Asia/Seoul",
   "reportTime": "09:00",
   "reportDays": "월-금",
+  "workingHours": "09:00-18:00",
   "priorityRule": "본인이 원하는 배치 기준을 자연어로 서술 (예: \"오전에 집중력이 필요한 일을 먼저 배치하고, 오후로 갈수록 가벼운 일을 배치한다\" 또는 \"마감이 급한 일을 무조건 먼저 배치한다\")",
   "onOverflow": "push"
 }

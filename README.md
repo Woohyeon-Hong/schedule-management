@@ -45,6 +45,7 @@ claude.ai에서 **Google Calendar**와 **Slack** 커넥터를 연결합니다. �
 | `slackChannel` | 리포트를 받을 채널 |
 | `timezone` | 시간대 |
 | `reportTime` / `reportDays` | 리포트 시각 / 요일 |
+| `workingHours` | 태스크를 배치할 시간대. 이 밖의 시간은 비워둡니다 |
 | `priorityRule` | 배치 기준. 자연어 문장으로 적습니다. 예: `"마감이 급한 일을 먼저 배치한다"` |
 | `onOverflow` | 하루에 다 담기지 않는 태스크의 처리 방식 (기본 `"push"`) |
 
